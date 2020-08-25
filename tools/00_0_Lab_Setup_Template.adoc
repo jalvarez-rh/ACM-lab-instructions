@@ -1,0 +1,113 @@
+// Following the suggestion from https://asciidoctor.org/docs/user-manual/#applying-substitutions
+//:markup-in-source: verbatim,attributes,quotes
+// and then use it as:
+//[source,java,subs="{markup-in-source}"]
+
+:numbered:
+== Provision Lab Environment
+
+[NOTE]
+If you previously set up an environment for this class, you can skip this section and go directly to the <<labexercises>> section.
+
+In this section, you provision the lab environment to provide access to all of the components required to perform the labs.
+This course requires the use of two OpenShift^(R)^ 4 clusters.
+
+=== Deploy ACM Hub Cluster
+
+You use this cluster to run the RHACM application and components.
+
+. Go to the {opentlc_portal} and use your OPENTLC credentials to log in.
++
+[TIP]
+If you do not remember your password, go to the {opentlc_account_management} to reset your password.
+
+. Navigate to *Services -> Catalogs -> All Services -> {opentlc_catalog_name}*.
+. On the left, select *{opentlc_catalog_item_name1}*.
+. On the right, click *Order*.
+. At the bottom right, click *Submit*.
++
+[IMPORTANT]
+Do not select *App Control -> Start* after ordering the lab.
+You are simply requesting access to the shared environment so there is nothing to start.
+
+* After a few minutes, expect to receive an email with instructions on how to connect to the environment.
+. Read the email carefully and specifically note the URL for the OpenShift Container Platform web console and the SSH credentials needed to connect to the `bastion` VM for your hub cluster.
+
+=== Deploy ACM Managed Cluster
+
+You use this cluster to import into RHACM and run applications and policies.
+
+. Navigate to *Services -> Catalogs -> All Services -> {opentlc_catalog_name}*.
+. On the left, select *{opentlc_catalog_item_name2}*.
+. On the right, click *Order*.
+. At the bottom right, click *Submit*.
++
+[IMPORTANT]
+Do not select *App Control -> Start* after ordering the lab.
+You are simply requesting access to the shared environment so there is nothing to start.
+
+* After a few minutes, expect to receive an email with instructions on how to connect to the environment.
+. Read the email carefully and specifically note the URL for the OpenShift Container Platform web console and the SSH credentials needed to connect to the `bastion` VM for your managed cluster.
+
+//=== Start Cluster After Shutdown (Reference)
+
+//To conserve resources, the OpenShift clusters shut down automatically after eight hours.
+//This section provides directions for restarting the clusters after they have shut down automatically.
+
+//. Go to the {opentlc_portal} and use your OPENTLC credentials to log in.
+//. Navigate to *Services -> My Services* (expect this to be the screen you see right after logging in).
+//. In the list of your services, select your hub or managed cluster.
+//. Select *App Control -> Start* to start your client VM.
+//. Select *Yes* at the *Are you sure?* prompt.
+//. At the bottom right, click *Submit*.
+
+//* After a few minutes, expect to receive an email letting you know that the cluster has started.
+
+=== Test Server Connections
+
+Each cluster includes a RHEL 8 VM running in the environment that acts as a `bastion` VM.
+You use these VMs throughout the labs to execute commands and interact with your OpenShift clusters.
+
+. Connect to one of your `bastion` VMs using the information you received in the provisioning emails:
++
+.Sample Command
+[source,sh]
+----
+ssh -i opentlc-username@bastion.$GUID.example.opentlc.com
+----
++
+TIP: Use the SSH password you received in the same provisioning email.
+
+. Validate that the GUID variable is set correctly for your environment:
++
+[source,sh]
+----
+echo $GUID
+----
++
+.Sample Output
+----
+c3po
+----
+
+=== Connect to OpenShift Cluster
+
+Once you are connected to one of your `bastion` VMs, you can interact with your OpenShift cluster.
+
+. Use the `oc` binary to check the connection to your OpenShift cluster:
++
+[source,texinfo]
+----
+oc get nodes
+----
++
+.Sample Output
+----
+
+NAME                               STATUS   ROLES    AGE   VERSION
+cluster-acmm1-8qtmt-master-0       Ready    master   29h   v1.17.1+912792b
+cluster-acmm1-8qtmt-master-1       Ready    master   29h   v1.17.1+912792b
+cluster-acmm1-8qtmt-master-2       Ready    master   29h   v1.17.1+912792b
+cluster-acmm1-8qtmt-worker-r58tx   Ready    worker   29h   v1.17.1+912792b
+cluster-acmm1-8qtmt-worker-xk4kw   Ready    worker   29h   v1.17.1+912792b
+----

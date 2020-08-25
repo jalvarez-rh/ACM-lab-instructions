@@ -1,0 +1,21 @@
+// Course Properties
+:course_name: Red Hat Advanced Cluster Management Foundations
+
+// OpenTLC Portal
+:opentlc_portal: link:https://labs.opentlc.com/[OPENTLC lab portal^]
+:opentlc_account_management: link:https://www.opentlc.com/account/[OPENTLC Account Management page^]
+
+// Catalog Items
+:opentlc_catalog_name: OPENTLC OpenShift 4 Labs
+:opentlc_catalog_item_name1: OpenShift 4 ACM Foundation Lab (Hub)
+:opentlc_catalog_item_name2: OpenShift 4 ACM Foundation Lab (Managed)
+
+// Documentation
+:ocp_docs: link:https://docs.openshift.com/container-platform/4.4/welcome/index.html[OpenShift Container Platform Documentation^]
+
+// Lab Document Setup
+:scrollbar:
+:data-uri:
+:imagesdir: images
+:toc2:
+:linkattrs:
