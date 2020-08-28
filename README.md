@@ -1,1 +1,1 @@
-# ACM-lab-instructions
+# ACM-RHTR Labs
